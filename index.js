@@ -7,7 +7,7 @@ const loadAllHubs = async () => {
         const res = await fetch(url)
         const data = await res.json()
 
-        // See More Button Enable & Disable functionality;
+        // See More Button
         const seeMoreBtn = document.getElementById('seeMoreBtn');
         if (data.data.tools.length > 6) {
             seeMoreBtn.classList.remove('d-none')
@@ -17,7 +17,6 @@ const loadAllHubs = async () => {
         console.log('Some Erros occurs:' + error);
     }
 }
-
 
 const displayAllHubs = (data) => {
 
