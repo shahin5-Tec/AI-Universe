@@ -8,7 +8,7 @@ const loadAllHubs = async () => {
         const data = await res.json()
 
         // See More Button
-        const seeMoreBtn = document.getElementById('seeMoreBtn');
+        const seeMoreBtn = document.getElementById('see-more-btn');
         if (data.data.tools.length > 6) {
             seeMoreBtn.classList.remove('d-none')
             displayAllHubs(data.data.tools.slice(0, 6))
@@ -64,7 +64,7 @@ const displayAllHubs = (data) => {
                     </div>
                 </div>
         `
-        // Inserted to the divContainer
+        // append child
         divContainer.appendChild(div);
 
         // spinner-stop
@@ -97,7 +97,7 @@ const CardDetails = (id) => {
 }
 //  Showing the data to the Modal
 const modalData = (modaldata) => {
-    //console.log(modaldata)
+   
     const { description, image_link, pricing, tool_name, use_cases, integrations, input_output_examples, features, accuracy } = modaldata;
     document.getElementById('leftCardTitle').innerText = description;
 
@@ -175,6 +175,7 @@ const modalData = (modaldata) => {
 </div> 
     `
 }
+
 
 
 
