@@ -88,6 +88,94 @@ document.getElementById('see-more').addEventListener('click', function () {
 
     seeMore();
 });
+// Details of a Card
+const CardDetails = (id) => {
+
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => modalData(data.data))
+}
+//  Showing the data to the Modal
+const modalData = (modaldata) => {
+    //console.log(modaldata)
+    const { description, image_link, pricing, tool_name, use_cases, integrations, input_output_examples, features, accuracy } = modaldata;
+    document.getElementById('leftCardTitle').innerText = description;
+
+    document.getElementById('right-div').innerHTML = `
+         <img src="${image_link[0] ? image_link[0] : 'Not Found Image'}" class="card-img-top rounded" alt="...">
+         <div class="accuracy">
+                    ${accuracy.score * 100 > 80 ? '<button class="btn btn-success">Accuracy: ' + accuracy.score * 100 + '%</button>' : '<button class="btn btn-danger">Accuracy Low</button>'
+        }
+                    
+                </div>
+            <div class="card-body">
+                <h5 class="card-title text-center">${input_output_examples[0].input}</h5>
+                <p class="card-text text-center">${input_output_examples[0].output}</p>
+                
+            </div>
+    `;
+
+    const divPricing = document.getElementById('pricing');
+    divPricing.innerHTML = `
+    <div class="col">
+    <div class="card py-3 pricing-card ">
+      <div class="card-body p-4  p-lg-1 text-center">
+        <h5 class="card-title text-success">${pricing[0].price}</h5>
+        <h5 class="card-title text-success">${pricing[0].plan}</h5>
+      </div>
+    </div>
+  </div> 
+
+  <div class="col">
+  <div class="card py-3 pricing-card">
+    <div class="card-body p-4  p-lg-1 text-center">
+    <h5 class="card-title text-warning">${pricing[1].price}</h5>
+    <h5 class="card-title text-warning">${pricing[1].plan}</h5>
+    </div>
+  </div>
+</div> 
+
+<div class="col">
+<div class="card py-1 pricing-card">
+  <div class="card-body p-4 p-lg-1 text-center">
+    <h5 class="card-title text-danger">${pricing[2].price}</h5>
+    <h5 class="card-title text-danger">${pricing[2].plan}</h5>
+  </div>
+</div>
+</div> 
+    `
+
+    // Feature and Integration;
+    const featureIntegration = document.getElementById('featureItegration');
+    featureIntegration.innerHTML = `
+    <div class="col">
+    <div class="card pricing-card ">
+      <div class="card-body p-1 featureInte">
+        <h2 class="card-title fw-bold">Feature</h2>
+        <ul>
+        <li>${features[1].feature_name} </li>
+        <li>${features[2].feature_name} </li>
+        <li>${features[3].feature_name} </li>
+        </ul>
+      </div>
+    </div>
+  </div> 
+
+  <div class="col">
+  <div class="card pricing-card ">
+    <div class="card-body p-1 featureInte">
+    <h2 class="card-title fw-bold">Integration</h2>
+        <ul>
+        <li>${integrations[0] ? integrations[0] : '<b class="text-danger">No Data Found</b>'} </li>
+        <li>${integrations[1] ? integrations[1] : '<b class="text-danger">No Data Found</b>'} </li>
+        <li>${integrations[2] ? integrations[2] : '<b class="text-danger">No Data Found</b>'} </li>
+        </ul>
+    </div>
+  </div>
+</div> 
+    `
+}
 
 
 
