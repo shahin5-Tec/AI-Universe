@@ -1,9 +1,24 @@
+
 const loadAllHubs = async () => {
-    const url = `https://openapi.programming-hero.com/api/ai/tools`
-    const res = await fetch(url);
-    const data = await res.json()
-    displayAllHubs(data.data.tools);
+    // Spinner Showing for Loading the Data;
+    toggleSpinner(true);
+    const url = `https://openapi.programming-hero.com/api/ai/tools`;
+    try {
+        const res = await fetch(url)
+        const data = await res.json()
+
+        // See More Button Enable & Disable functionality;
+        const seeMoreBtn = document.getElementById('seeMoreBtn');
+        if (data.data.tools.length > 6) {
+            seeMoreBtn.classList.remove('d-none')
+            displayAllHubs(data.data.tools.slice(0, 6))
+        }
+    } catch (error) {
+        console.log('Some Erros occurs:' + error);
+    }
 }
+
+// Data pass to the Frontend;
 const displayAllHubs = tools => {
     const toolsContainer = document.getElementById('tools-container')
    
@@ -29,7 +44,26 @@ const displayAllHubs = tools => {
         `;
         // append child
         toolsContainer.appendChild(toolDiv)
+        // spinner-stop
+        toggleSpinner(false);
     })
+        
+      
 
 }
+
+
+// spinner-part
+const toggleSpinner = isLoading=>{
+    const sectionLoader = document.getElementById('loader')
+    if(isLoading){
+        sectionLoader.classList.remove('d-none');
+    }
+    else{
+        sectionLoader.classList.add('d-none')
+    }
+}
+
+// Call the loadHubs function;
 loadAllHubs();
+
