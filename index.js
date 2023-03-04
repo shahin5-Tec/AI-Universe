@@ -73,10 +73,21 @@ const displayAllHubs = (data) => {
     })
         
 }
+// see more button
+document.getElementById('see-more').addEventListener('click', function () { 
+    const seeMore = async () => {
+        const url = `https://openapi.programming-hero.com/api/ai/tools`;
+        try {
+            const res = await fetch(url)
+            const data = await res.json()
+            displayAllHubs(data.data.tools)
+        } catch (error) {
+            console.log('Error may ocuurs;' + error)
+        }
+    }
 
-
-
-
+    seeMore();
+});
 
 
 
@@ -91,6 +102,6 @@ const toggleSpinner = isLoading=>{
     }
 }
 
-// Call the loadHubs function;
+
 loadAllHubs();
 
